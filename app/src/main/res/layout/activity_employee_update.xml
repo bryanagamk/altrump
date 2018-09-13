@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".information.employee.EmployeeUpdateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nomor KTP"
+            android:textSize="12sp"
+            android:textColor="@color/colorSubTitle"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="0000000000000000"
+            android:inputType="textShortMessage"
+            android:textColor="@color/colorTitle"
+            android:textSize="26sp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorSeparator"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informasi data diri"
+            android:textColor="@color/colorBlue"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_people_24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Nama depan"
+                    android:inputType="textShortMessage"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Nama belakang"
+                    android:inputType="textShortMessage"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_calendar_24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Tempat lahir"
+                    android:inputType="textShortMessage"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Tanggal lahir"
+                    android:inputType="date"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_location_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Alamat"
+                android:inputType="textPostalAddress|textMultiLine"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_gasstation_24dp"/>
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:hint="Ditempatkan di ..."
+                android:gravity="left"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginTop="-12dp"
+                app:ms_hide_arrow="false"
+                app:ms_dropdown_height="wrap_content"
+                app:ms_dropdown_max_height="200dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Media telekomunikasi"
+            android:textColor="@color/colorBlue"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_mail_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_phone_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Telepon"
+                android:inputType="phone"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_phone_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Telepon rumah"
+                android:inputType="phone"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

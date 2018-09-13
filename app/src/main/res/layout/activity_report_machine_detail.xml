@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".report.machine.ReportMachineDetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_blur"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:scaleType="matrix"
+                android:visibility="visible"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/AppTheme.Translucent"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/img_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_car_2"
+                    android:scaleType="centerCrop"
+                    android:background="@color/colorBgProfile"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_above="@+id/ln_time"
+                    android:layout_marginLeft="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="31"
+                        android:textSize="32sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/montserrat_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="APR"
+                        android:textAllCaps="true"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:layout_marginLeft="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_alignParentBottom="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jam hidup"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/montserrat_semibold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13:00 wib"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/montserrat_semibold"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jam mati"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/montserrat_semibold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13:00 wib"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorWhite"
+                            android:fontFamily="@font/montserrat_semibold"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".profile.EditProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_blur"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:scaleType="matrix"
+                android:visibility="visible"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/AppTheme.Translucent"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                app:layout_anchor="@id/img_bg"
+                app:layout_anchorGravity="bottom|center_horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/xd_camera_24dp"
+                    android:tint="@color/colorWhite"
+                    android:layout_centerInParent="true"
+                    android:elevation="1dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop"
+                    app:civ_fill_color="@color/colorImgProfile"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_camera_24dp"
+                        android:tint="@color/colorWhite"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:elevation="1dp"/>
+
+                    <ImageView
+                        android:id="@+id/img_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_car_2"
+                        android:scaleType="centerCrop"
+                        android:background="@color/colorBgProfile"/>
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="59dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Afdolash Nur K."
+                    android:textSize="16sp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2103151059"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorTitle"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_gravity="center"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_mail_24dp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_calendar_24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="18dp"
+                            android:background="@android:color/transparent"
+                            android:hint="Tempat lahir"
+                            android:inputType="textShortMessage"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="18dp"
+                            android:background="@android:color/transparent"
+                            android:hint="Tanggal lahir"
+                            android:inputType="date"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_phone_24dp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Nomor telepon"
+                        android:inputType="phone"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_key_24dp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Kata sandi"
+                        android:inputType="textPassword"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_key_24dp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Konfirmasi kata sandi"
+                        android:inputType="textPassword"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorBlue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Simpan "
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/montserrat_medium"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

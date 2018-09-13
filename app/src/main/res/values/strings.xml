@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Altrump</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="menu_drawer_titles">
+        <item>Dashboard</item>
+        <item>Informasi</item>
+        <item>Laporan</item>
+        <item>Pengaturan</item>
+        <item />
+        <item>Keluar</item>
+    </string-array>
+
+    <array name="menu_drawer_icons">
+        <item>@drawable/xd_home_24dp</item>
+        <item>@drawable/xd_lamp_24dp</item>
+        <item>@drawable/xd_loadspeaker_24dp</item>
+        <item>@drawable/xd_settings_24dp</item>
+        <item>0</item>
+        <item>@drawable/xd_lock_24dp</item>
+    </array>
+
+    <string name="machine_title">Ditempatkan di ...</string>
+    <string-array name="machine_list">
+        <item>SPBU Pare</item>
+        <item>SPBU Sedati</item>
+        <item>SPBU Semampir</item>
+        <item>SPBU Baruna</item>
+        <item>SPBU Wonosari</item>
+        <item>SPBU Kertajaya</item>
+        <item>SPBU Mulyosari</item>
+        <item>SPBU Jogorante</item>
+    </string-array>
+
+    <string-array name="month_list">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maret</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Agustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Desember</item>
+    </string-array>
+
+    <string-array name="year_list">
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+        <item>2013</item>
+        <item>2012</item>
+        <item>2011</item>
+        <item>2010</item>
+    </string-array>
+
+</resources>

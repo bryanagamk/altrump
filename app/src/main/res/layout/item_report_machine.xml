@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingRight="24dp"
+    android:paddingLeft="24dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPBU Sedati"
+                android:textColor="@color/colorTitle"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00:00:00:00"
+                android:textColor="@color/colorTitle"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="50dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_indicator"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Mati"
+                android:textColor="@color/colorTitle"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/xd_watch_24dp"
+            android:scaleType="fitStart"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mesin hidup"
+                android:textColor="@color/colorSubTitle"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16 Sep 2016, 13:00 wib"
+                android:textColor="@color/colorTitle"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mesin hidup"
+                android:textColor="@color/colorSubTitle"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16 Sep 2016, 13:00 wib"
+                android:textColor="@color/colorTitle"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

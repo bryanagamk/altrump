@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".information.machine.MachineDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="24dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Afdolash Nur Kaffah"
+            android:textColor="@color/colorTitle"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2103151059"
+            android:textColor="@color/colorTitle"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorSeparator"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/xd_mail_24dp"
+                android:scaleType="fitStart"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@color/colorSubTitle"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="afdolash18@gmail.com"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/xd_calendar_24dp"
+                android:scaleType="fitStart"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tempat tanggal lahir"
+                    android:textColor="@color/colorSubTitle"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kediri, 18 Juli 1997"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/xd_phone_24dp"
+                android:scaleType="fitStart"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nomor telepon"
+                    android:textColor="@color/colorSubTitle"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+62 8124078773"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/xd_location_24dp"
+                android:scaleType="fitStart"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textColor="@color/colorSubTitle"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jalan Padang Padi Perum Puri Asri D-19, 64126, Kota Kediri"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorSeparator"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Hapus"
+                    android:textColor="@color/colorRed"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Update"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

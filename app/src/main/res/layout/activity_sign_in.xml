@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    tools:context=".splash.SignInActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="32dp" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Altrump"
+            android:textSize="32sp"
+            android:textColor="@color/colorTitle"
+            android:fontFamily="@font/montserrat_medium"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="85dp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_mail_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/xd_key_24dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:background="@android:color/transparent"
+                android:hint="Kata sandi"
+                android:inputType="textPassword"
+                android:textColor="@color/colorTitle"
+                android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="42dp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum memiliki akun? "
+                android:textColor="@color/colorSubTitle"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daftar disini."
+                android:textColor="@color/colorBlue"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Masuk"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/montserrat_medium"/>
+
+    </RelativeLayout>
+    
+</LinearLayout>
