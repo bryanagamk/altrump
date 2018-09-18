@@ -44,6 +44,7 @@
                 android:src="@drawable/xd_people_24dp"/>
 
             <EditText
+                android:id="@+id/et_namadepan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -69,6 +70,7 @@
                 android:src="@drawable/xd_mail_24dp"/>
 
             <EditText
+                android:id="@+id/et_emailregister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -94,6 +96,7 @@
                 android:src="@drawable/xd_phone_24dp"/>
 
             <EditText
+                android:id="@+id/et_telpon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -119,6 +122,7 @@
                 android:src="@drawable/xd_key_24dp"/>
 
             <EditText
+                android:id="@+id/et_passwordregister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -144,6 +148,7 @@
                 android:src="@drawable/xd_key_24dp"/>
 
             <EditText
+                android:id="@+id/et_repasswordregister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -175,6 +180,7 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
             <TextView
+                android:id="@+id/tv_masukdisini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Masuk disini."
@@ -187,6 +193,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/bt_daftar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"

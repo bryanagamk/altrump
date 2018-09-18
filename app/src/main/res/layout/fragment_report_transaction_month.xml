@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jam hidup"
+                android:text="Estimasi Pemasukan"
                 android:textSize="12sp"
                 android:textColor="@color/colorSubTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13 : 00 wib"
+                android:text="Rp. 5.000.000"
                 android:textSize="16sp"
                 android:textColor="@color/colorTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jam hidup"
+                android:text="Transaksi"
                 android:textSize="12sp"
                 android:textColor="@color/colorSubTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13 : 00 wib"
+                android:text="48"
                 android:textSize="16sp"
                 android:textColor="@color/colorTitle"
                 android:fontFamily="@font/montserrat_regular"/>

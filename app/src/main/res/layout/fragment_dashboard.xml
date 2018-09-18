@@ -28,6 +28,7 @@
             android:fontFamily="@font/montserrat_medium"
             android:layout_marginLeft="24dp"
             android:layout_marginBottom="24dp"/>
+        <!--TODO: tampilkan date hari ini-->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,12 +38,15 @@
             android:layout_marginLeft="24dp">
 
             <TextView
+                android:id="@+id/countTransaction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="210"
                 android:textSize="32sp"
                 android:textColor="@color/colorWhite"
                 android:fontFamily="@font/montserrat_bold"/>
+
+            <!--TODO: 210 ini jumlah apa?-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,6 +95,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_semibold"/>
+            <!--TODO: tampilkan jumlah pemasukan-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,14 +136,18 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_semibold"/>
+            <!--TODO: Tampilkan jumlah transaksi-->
 
             <TextView
+                android:id="@+id/tv_monthDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Oktober 2016"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 android:fontFamily="@font/montserrat_regular"/>
+
+            <!--TODO: Tampilkan Bulan real time-->
 
         </LinearLayout>
 
@@ -162,5 +171,6 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:clipToPadding="false"/>
+    <!--TODO: Informasi mesin ListView Mesin di seluruh SPBU-->
 
 </LinearLayout>

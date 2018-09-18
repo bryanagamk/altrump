@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jam hidup"
+                android:text="Estimasi Pemasukan"
                 android:textSize="12sp"
                 android:textColor="@color/colorSubTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13 : 00 wib"
+                android:text="Rp. 5.000.000"
                 android:textSize="16sp"
                 android:textColor="@color/colorTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jam hidup"
+                android:text="Transaksi"
                 android:textSize="12sp"
                 android:textColor="@color/colorSubTitle"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -78,16 +78,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13 : 00 wib"
+                android:text="48"
                 android:textSize="16sp"
                 android:textColor="@color/colorTitle"
                 android:fontFamily="@font/montserrat_regular"/>
 
         </LinearLayout>
-
+        <!--TODO : Tampilkan data transaksi real time dari firebase-->
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/detailTransaksi"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"

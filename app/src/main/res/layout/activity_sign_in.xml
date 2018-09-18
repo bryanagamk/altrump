@@ -53,6 +53,7 @@
                 android:src="@drawable/xd_mail_24dp"/>
 
             <EditText
+                android:id="@+id/et_emaillogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -78,6 +79,7 @@
                 android:src="@drawable/xd_key_24dp"/>
 
             <EditText
+                android:id="@+id/et_passwordlogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -109,6 +111,7 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
             <TextView
+                android:id="@+id/tv_daftardisini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daftar disini."
@@ -121,6 +124,7 @@
     </LinearLayout>
     
     <RelativeLayout
+        android:id="@+id/bt_masuk"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"

@@ -98,6 +98,8 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
         data.add(new ValueDataEntry("8", 10));
         data.add(new ValueDataEntry("9", 46));
 
+//        TODO : Ambil data Transaksi selama sebulan dan dijadikan chart
+
         Column column = cartesian.column(data);
         column.tooltip()
                 .titleFormat("{%X} Oktober 2018")

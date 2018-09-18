@@ -81,6 +81,8 @@
                         android:fontFamily="@font/montserrat_bold"
                         android:layout_marginLeft="8dp"/>
 
+                    <!--TODO : tampilkan data tanggal yang dipilih-->
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -152,6 +154,8 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:clipToPadding="false"/>
+
+            <!--TODO : Tampilkan seluruh mesin SPBU dan jam hidup-mati-->
 
         </LinearLayout>
 

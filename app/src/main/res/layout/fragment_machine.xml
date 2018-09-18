@@ -6,11 +6,11 @@
     android:background="@color/colorWhite"
     tools:context=".information.machine.MachineFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
+        android:id="@+id/listViewMachine"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"/>
+        android:layout_height="wrap_content">
+
+    </ListView>
 
 </FrameLayout>

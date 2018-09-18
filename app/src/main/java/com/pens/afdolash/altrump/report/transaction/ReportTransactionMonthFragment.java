@@ -40,4 +40,6 @@ public class ReportTransactionMonthFragment extends Fragment {
         return view;
     }
 
+    /*TODO: Estimasi pemasukan untuk bulanan*/
+
 }

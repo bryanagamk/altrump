@@ -1,11 +1,14 @@
 package com.pens.afdolash.altrump.navbar;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,16 +19,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pens.afdolash.altrump.dashboard.DashboardFragment;
 import com.pens.afdolash.altrump.information.InformationFragment;
 import com.pens.afdolash.altrump.R;
+import com.pens.afdolash.altrump.profile.ProfileActivity;
 import com.pens.afdolash.altrump.report.ReportFragment;
 import com.pens.afdolash.altrump.settings.SettingsFragment;
 import com.pens.afdolash.altrump.navbar.menu.DrawerAdapter;
 import com.pens.afdolash.altrump.navbar.menu.DrawerItem;
 import com.pens.afdolash.altrump.navbar.menu.SimpleItem;
 import com.pens.afdolash.altrump.navbar.menu.SpaceItem;
+import com.pens.afdolash.altrump.splash.SignInActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
@@ -44,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
     private SlidingRootNav slidingRootNav;
 
+    private FirebaseAuth.AuthStateListener authListener;
+    FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +64,25 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    finish();
+                }
+            }
+        };
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
@@ -76,6 +108,16 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         list.setNestedScrollingEnabled(false);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
+
+        LinearLayout bt_profile = findViewById(R.id.bt_profile);
+        bt_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         adapter.setSelected(NAV_DASHBOARD);
     }
@@ -108,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 setAppBarElevation(true);
                 break;
             case NAV_LOGOUT :
-                finish();
+                signOut();
                 break;
         }
     }
@@ -163,5 +205,16 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     @ColorInt
     private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
+    }
+
+    //sign out method
+    public void signOut() {
+        auth.signOut();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
     }
 }
