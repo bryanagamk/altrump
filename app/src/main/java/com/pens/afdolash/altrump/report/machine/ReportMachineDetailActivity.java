@@ -26,10 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.ImageHelper;
 import com.pens.afdolash.altrump.R;
-import com.pens.afdolash.altrump.dashboard.MachineList;
 import com.pens.afdolash.altrump.model.Machine;
-import com.pens.afdolash.altrump.profile.EditProfileActivity;
-import com.pens.afdolash.altrump.profile.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +85,7 @@ public class ReportMachineDetailActivity extends AppCompatActivity {
                 }
 
                 //creating adapter
-                com.pens.afdolash.altrump.dashboard.MachineList machineAdapter = new MachineList(ReportMachineDetailActivity.this, machines);
+                MachineList machineAdapter = new MachineList(ReportMachineDetailActivity.this, machines);
                 //attaching adapter to the listview
                 listViewMachine.setAdapter(machineAdapter);
             }
