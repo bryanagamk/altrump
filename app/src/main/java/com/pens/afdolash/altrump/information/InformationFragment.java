@@ -1,9 +1,11 @@
 package com.pens.afdolash.altrump.information;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.pens.afdolash.altrump.R;
 import com.pens.afdolash.altrump.information.employee.EmployeeFragment;
+import com.pens.afdolash.altrump.information.machine.MachineAddActivity;
 import com.pens.afdolash.altrump.information.machine.MachineFragment;
 
 import java.util.ArrayList;

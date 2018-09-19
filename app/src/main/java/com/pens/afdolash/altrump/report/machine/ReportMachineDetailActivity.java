@@ -17,17 +17,33 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.ImageHelper;
 import com.pens.afdolash.altrump.R;
+import com.pens.afdolash.altrump.dashboard.MachineList;
+import com.pens.afdolash.altrump.model.Machine;
 import com.pens.afdolash.altrump.profile.EditProfileActivity;
 import com.pens.afdolash.altrump.profile.ProfileActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReportMachineDetailActivity extends AppCompatActivity {
 
     private ImageView imgBlur;
     private View view;
     private Bitmap blurBitmap;
+
+    ListView listViewMachine;
+    List<Machine> machines;
+    // Get a reference to your user
+    DatabaseReference databaseMachine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +62,40 @@ public class ReportMachineDetailActivity extends AppCompatActivity {
             public void run() {
                 blurBitmap = createBlurBitmap();
                 imgBlur.setImageBitmap(blurBitmap);
+            }
+        });
+
+        //Tampilkan daftar mesin
+        databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
+
+        listViewMachine = view.findViewById(R.id.listViewMachine);
+
+        machines = new ArrayList<>();
+
+        databaseMachine.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //clearing the previous artist list
+                machines.clear();
+
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting machine
+                    Machine machine = postSnapshot.getValue(Machine.class);
+                    //adding machine to the list
+                    machines.add(machine);
+                }
+
+                //creating adapter
+                com.pens.afdolash.altrump.dashboard.MachineList machineAdapter = new MachineList(ReportMachineDetailActivity.this, machines);
+                //attaching adapter to the listview
+                listViewMachine.setAdapter(machineAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

@@ -164,13 +164,11 @@
         android:layout_marginRight="24dp"
         android:layout_marginTop="24dp"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_information"
+    <ListView
+        android:layout_margin="20dp"
+        android:id="@+id/listViewMachine"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false"/>
-    <!--TODO: Informasi mesin ListView Mesin di seluruh SPBU-->
+        android:layout_height="wrap_content">
+    </ListView>
 
 </LinearLayout>

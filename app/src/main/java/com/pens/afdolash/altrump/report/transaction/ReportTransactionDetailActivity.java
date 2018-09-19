@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -40,6 +41,7 @@ import com.anychart.enums.TooltipPositionMode;
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.pens.afdolash.altrump.ImageHelper;
 import com.pens.afdolash.altrump.R;
+import com.pens.afdolash.altrump.model.Machine;
 import com.pens.afdolash.altrump.profile.EditProfileActivity;
 import com.pens.afdolash.altrump.profile.ProfileActivity;
 
@@ -51,6 +53,8 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
     private ImageView imgBlur;
     private View view;
     private Bitmap blurBitmap;
+    ListView listViewMachine;
+    List<Machine> machines;
 
     private AnyChartView anyChartView;
     private CardView cardMotor, cardCar;

@@ -1,15 +1,19 @@
 package com.pens.afdolash.altrump.information.machine;
 
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +32,6 @@ import java.util.List;
 public class MachineFragment extends Fragment {
 
     ListView listViewMachine;
-
     List<Machine> machines;
 
     // Get a reference to your user
@@ -44,8 +47,7 @@ public class MachineFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_machine, container, false);
-        FirebaseDatabase database;
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
 
         listViewMachine = view.findViewById(R.id.listViewMachine);
@@ -68,13 +70,41 @@ public class MachineFragment extends Fragment {
                 }
 
                 //creating adapter
-                MachineList machineAdapter = new MachineList(getActivity(), machines);
+                final MachineList machineAdapter = new MachineList(getActivity(), machines);
                 //attaching adapter to the listview
+
                 listViewMachine.setAdapter(machineAdapter);
+
+                listViewMachine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getContext(), MachineDetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        View inflatedView = getLayoutInflater().inflate(R.layout.fragment_information, container, false);
+
+
+
+        // TODO: Belum kelar
+        FloatingActionButton fab = inflatedView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Click action
+                Intent intent = new Intent(getContext(), MachineAddActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -87,5 +117,6 @@ public class MachineFragment extends Fragment {
 
         return view;
     }
+
 
 }

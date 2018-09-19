@@ -1,7 +1,6 @@
 package com.pens.afdolash.altrump.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Machine implements Serializable{
 
