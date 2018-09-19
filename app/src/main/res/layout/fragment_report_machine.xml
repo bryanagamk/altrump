@@ -84,7 +84,6 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
         </LinearLayout>
-        <!--TODO : Tampilkan data jam real time-->
     </LinearLayout>
 
     <RelativeLayout

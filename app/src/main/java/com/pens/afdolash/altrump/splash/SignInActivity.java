@@ -85,5 +85,4 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-//    TODO : Implementasikan Auth Email dan Session User
 }
