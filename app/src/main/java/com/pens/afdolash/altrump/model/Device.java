@@ -1,5 +1,7 @@
 package com.pens.afdolash.altrump.model;
 
+import java.util.Date;
+
 public class Device {
 
     private String date, machineida, machineidb, machineidc, machineidd, machineide, machineidf, price, statusA,

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pens.afdolash.altrump.R;
@@ -30,10 +31,12 @@ public class MachineList extends ArrayAdapter<Machine> {
 
         TextView textViewName = listViewItem.findViewById(R.id.tv_namaSPBU);
         TextView textViewIdMesin = listViewItem.findViewById(R.id.tv_idMesin);
+        ImageView imageView = listViewItem.findViewById(R.id.img_status);
 
         Machine machine = machines.get(position);
         String nama = "SPBU " + machine.getAlamat();
         textViewName.setText(nama);
+        imageView.setImageResource(R.drawable.ic_offline_24dp);
         textViewIdMesin.setText(machine.getId_mesin());
 
         return listViewItem;

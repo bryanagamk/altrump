@@ -92,13 +92,7 @@ public class MachineFragment extends Fragment {
             }
         });
 
-
-        View inflatedView = getLayoutInflater().inflate(R.layout.fragment_information, container, false);
-
-
-
-        // TODO: Belum kelar
-        FloatingActionButton fab = inflatedView.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

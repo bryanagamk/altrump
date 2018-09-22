@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private FirebaseAuth.AuthStateListener authListener;
     FirebaseAuth auth;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,5 +218,24 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     public void onStart() {
         super.onStart();
         auth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

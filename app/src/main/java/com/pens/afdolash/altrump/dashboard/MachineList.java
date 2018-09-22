@@ -1,6 +1,7 @@
 package com.pens.afdolash.altrump.dashboard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,10 @@ import java.util.List;
 
 public class MachineList extends ArrayAdapter<Machine> {
 
-    private Activity context;
+    private Context context;
     List<Machine> machines;
 
-    public MachineList(Activity context, List<Machine> machines) {
+    public MachineList(Context context, List<Machine> machines) {
         super(context, R.layout.layout_machine_dashboard_list, machines);
         this.context = context;
         this.machines = machines;
@@ -25,7 +26,7 @@ public class MachineList extends ArrayAdapter<Machine> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
+        LayoutInflater inflater = LayoutInflater.from(context);
         View listViewItem = inflater.inflate(R.layout.layout_machine_dashboard_list, null, true);
 
         TextView textViewName = listViewItem.findViewById(R.id.tv_namaSPBU);
