@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.R;
+import com.pens.afdolash.altrump.model.DataDevice;
 import com.pens.afdolash.altrump.model.Device;
 import com.pens.afdolash.altrump.model.Machine;
 
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +48,11 @@ public class DashboardFragment extends Fragment {
     int countMonth;
     int total = 0;
     int price;
+
+    List<DataDevice> dataDevices;
+
+    Date today = new Date();
+
     TextView tv_transaction, tv_income, countTransaction;
 
     public DashboardFragment() {
@@ -91,49 +98,61 @@ public class DashboardFragment extends Fragment {
         db.child("altrump").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //iterating through all the nodes
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot postponeSnapshot : postSnapshot.getChildren()){
-                        String key = postponeSnapshot.getKey();
-                        Date today = new Date();
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                        Date var = null;
+                dataDevices = new ArrayList<>();
+                Calendar now = Calendar.getInstance();
+                countDay = 0;
 
-                        if (key.equals("date")){
-                            String value = postponeSnapshot.getValue().toString();
-                            try {
-                                var = formatter.parse(value);
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
 
-                                if (var.getYear() == today.getYear() && var.getMonth() == today.getMonth()){
-                                    if (var.getDate() == today.getDate()){
-                                        countDay++;
-                                    }
-                                    countMonth++;
-                                }
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+                    Device data = postSnapshot.getValue(Device.class);
+                    try {
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+                        Date date = formatter.parse(data.getDate());
+                        Calendar myCal = Calendar.getInstance();
+                        myCal.setTime(date);
+
+                        if (now.equals(myCal))
+                            countDay++;
+
+                        if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR))
+                            countMonth++;
+
+                        DataDevice dataDevice = new DataDevice(myCal.get(Calendar.MONTH) + 1, myCal.get(Calendar.YEAR), new ArrayList<Device>());
+
+                        if (dataDevices.contains(dataDevice)){
+                            dataDevices.get(dataDevices.indexOf(dataDevice)).getDevices().add(data);
+                        } else {
+                            dataDevice.getDevices().add(data);
+                            dataDevices.add(dataDevice);
                         }
-                        if (key.equals("price")){
-                            String value = postponeSnapshot.getValue().toString();
-                            value = value.replace(",","");
-                            try {
-                                price = Integer.parseInt(value);
-                                price *= 500;
-                            } catch (Exception ignored) {
+                    } catch (Exception ignored){
 
-                            }
-                            total += price;
-
-                        }
                     }
                 }
-                String totals = Integer.toString(total);
-                String countDays = Integer.toString(countDay);
-                String countMonths = Integer.toString(countMonth);
-                tv_income.setText("Rp. " + totals);
-                countTransaction.setText(countDays);
-                tv_transaction.setText(countMonths);
+
+                for (DataDevice dataDevice : dataDevices){
+                    if (dataDevice.getMonth() == (now.get(Calendar.MONTH) + 1) && dataDevice.getYears() == now.get(Calendar.YEAR)){
+                        for (Device device : dataDevice.getDevices()){
+                            String val = device.getPrice();
+                            val.replace(",","");
+                            try {
+                                int pay = Integer.parseInt(val);
+                                total += (pay*500);
+                            } catch (Exception e){
+
+                            }
+                        }
+                    }
+                    Log.d(TAG, "onDataChange: bulan " + dataDevice.getDevices().size());
+                }
+
+                String day = Integer.toString(countDay);
+                String month = Integer.toString(countMonth);
+                String price = Integer.toString(total);
+                tv_income.setText(price);
+                countTransaction.setText(day);
+                tv_transaction.setText(month);
             }
 
             @Override
@@ -160,6 +179,7 @@ public class DashboardFragment extends Fragment {
 
         //Tampilkan daftar mesin
         db = FirebaseDatabase.getInstance().getReference();
+        db.keepSynced(true);
 
 
         listViewMachine = view.findViewById(R.id.listViewMachine);
