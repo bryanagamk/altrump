@@ -46,12 +46,9 @@ public class DashboardFragment extends Fragment {
     DatabaseReference db;
     int countDay;
     int countMonth;
-    int total = 0;
-    int price;
+    int totalMonth = 0;
 
     List<DataDevice> dataDevices;
-
-    Date today = new Date();
 
     TextView tv_transaction, tv_income, countTransaction;
 
@@ -73,20 +70,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //clearing the previous artist list
                 machines.clear();
 
-                //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //getting machine
                     Machine machine = postSnapshot.getValue(Machine.class);
-                    //adding machine to the list
                     machines.add(machine);
                 }
 
-                //creating adapter
                 machineAdapter.notifyDataSetChanged();
-                //attaching adapter to the listview
             }
 
             @Override
@@ -100,57 +91,38 @@ public class DashboardFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataDevices = new ArrayList<>();
                 Calendar now = Calendar.getInstance();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 countDay = 0;
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                countMonth = 0;
+                totalMonth = 0;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     Device data = postSnapshot.getValue(Device.class);
-                    try {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
+                    try {
                         Date date = formatter.parse(data.getDate());
                         Calendar myCal = Calendar.getInstance();
                         myCal.setTime(date);
+                        String val = data.getPrice();
+                        val = val.replace(",", "");
+                        int pay = Integer.parseInt(val);
 
-                        if (now.equals(myCal))
-                            countDay++;
-
-                        if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR))
-                            countMonth++;
-
-                        DataDevice dataDevice = new DataDevice(myCal.get(Calendar.MONTH) + 1, myCal.get(Calendar.YEAR), new ArrayList<Device>());
-
-                        if (dataDevices.contains(dataDevice)){
-                            dataDevices.get(dataDevices.indexOf(dataDevice)).getDevices().add(data);
-                        } else {
-                            dataDevice.getDevices().add(data);
-                            dataDevices.add(dataDevice);
-                        }
-                    } catch (Exception ignored){
-
-                    }
-                }
-
-                for (DataDevice dataDevice : dataDevices){
-                    if (dataDevice.getMonth() == (now.get(Calendar.MONTH) + 1) && dataDevice.getYears() == now.get(Calendar.YEAR)){
-                        for (Device device : dataDevice.getDevices()){
-                            String val = device.getPrice();
-                            val.replace(",","");
-                            try {
-                                int pay = Integer.parseInt(val);
-                                total += (pay*500);
-                            } catch (Exception e){
-
+                        if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                            if (now.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
+                                countDay++;
                             }
+                            totalMonth += (pay * 500);
+                            countMonth++;
                         }
+                    } catch (Exception ignored) {
+
                     }
-                    Log.d(TAG, "onDataChange: bulan " + dataDevice.getDevices().size());
                 }
 
                 String day = Integer.toString(countDay);
                 String month = Integer.toString(countMonth);
-                String price = Integer.toString(total);
-                tv_income.setText(price);
+                String price = Integer.toString(totalMonth);
+                tv_income.setText("Rp. " + price);
                 countTransaction.setText(day);
                 tv_transaction.setText(month);
             }
@@ -168,7 +140,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         countTransaction = view.findViewById(R.id.countTransaction);
@@ -177,13 +149,11 @@ public class DashboardFragment extends Fragment {
         tv_transaction = view.findViewById(R.id.tv_transaction);
         TextView tv_monthdashboard = view.findViewById(R.id.tv_monthDashboard);
 
-        //Tampilkan daftar mesin
         db = FirebaseDatabase.getInstance().getReference();
         db.keepSynced(true);
 
 
         listViewMachine = view.findViewById(R.id.listViewMachine);
-
         machines = new ArrayList<>();
 
 
@@ -196,5 +166,4 @@ public class DashboardFragment extends Fragment {
 
         return view;
     }
-
 }
