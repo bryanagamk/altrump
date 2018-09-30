@@ -66,20 +66,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="31"
+                        android:text="31 Apr"
                         android:textSize="32sp"
                         android:textColor="@color/colorWhite"
                         android:fontFamily="@font/montserrat_bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="APR"
-                        android:textAllCaps="true"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorWhite"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:layout_marginLeft="8dp"/>
 
                 </LinearLayout>
 
@@ -103,13 +93,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Estimasipemasukan"
+                            android:text="Pemasukan"
                             android:textSize="16sp"
                             android:textColor="@color/colorWhite"
                             android:fontFamily="@font/montserrat_semibold"/>
                         <!--TODO: masukkan data pemasukkan bulan ini-->
 
                         <TextView
+                            android:id="@+id/tv_income"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Rp 5.000.000"
@@ -136,6 +127,7 @@
                         <!--TODO: masukkan jumlah data transaksi bulan ini-->
 
                         <TextView
+                            android:id="@+id/tv_transaction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="17"

@@ -62,6 +62,9 @@ public class ReportTransactionDayFragment extends Fragment {
         db = FirebaseDatabase.getInstance().getReference();
         db.keepSynced(true);
 
+        tv_transaction = view.findViewById(R.id.tv_transaction);
+        tv_income = view.findViewById(R.id.tv_income);
+
         CalendarView cv_date = view.findViewById(R.id.cv_calendar_date);
         date = cv_date.getDate();
         cv_date.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -69,12 +72,57 @@ public class ReportTransactionDayFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 date = calendarView.getDate();
                 Log.d(TAG, "onSelectedDayChange: onDataChange date :" + date);
-                onStart();
+                db.child("altrump").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataDevices = new ArrayList<>();
+                        Calendar dateChoosen = Calendar.getInstance();
+                        dateChoosen.setTimeInMillis(date);
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                        countDay = 0;
+                        total = 0;
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Device data = postSnapshot.getValue(Device.class);
+                            try {
+                                Date date = formatter.parse(data.getDate());
+                                Calendar myCal = Calendar.getInstance();
+                                myCal.setTime(date);
+                                String val = data.getPrice();
+                                val = val.replace(",", "");
+                                int pay = Integer.parseInt(val);
+
+                                if (dateChoosen.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                                    if (dateChoosen.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
+                                        countDay++;
+                                        total += (pay * 500);
+                                    }
+                                }
+                            } catch (Exception ignored) {
+
+                            }
+                        }
+
+
+                        String day = Integer.toString(countDay);
+                        String price = Integer.toString(total);
+                        tv_income.setText("Rp. " + price);
+                        tv_transaction.setText(day);
+                        Log.d(TAG, "onDataChange: total " + total);
+                        Log.d(TAG, "onDataChange: countDay " + countDay);
+                        Log.d(TAG, "onDataChange: date " + date);
+                        Log.d(TAG, "onDataChange: dateChoosen " + dateChoosen.getTimeInMillis());
+                        Log.d(TAG, "onDataChange: day " + day);
+                        Log.d(TAG, "onDataChange: price " + price);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
-        tv_transaction = view.findViewById(R.id.tv_transaction);
-        tv_income = view.findViewById(R.id.tv_income);
 
 
         RelativeLayout relativeLayout = view.findViewById(R.id.detailTransaksi);
@@ -88,61 +136,5 @@ public class ReportTransactionDayFragment extends Fragment {
 
         return view;
 
-    }
-
-    @Override
-    public void onStart() {
-
-        db.child("altrump").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataDevices = new ArrayList<>();
-                Calendar dateChoosen = Calendar.getInstance();
-                dateChoosen.setTimeInMillis(date);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                countDay = 0;
-                total = 0;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Device data = postSnapshot.getValue(Device.class);
-                    try {
-                        Date date = formatter.parse(data.getDate());
-                        Calendar myCal = Calendar.getInstance();
-                        myCal.setTime(date);
-                        String val = data.getPrice();
-                        val = val.replace(",", "");
-                        int pay = Integer.parseInt(val);
-
-                        if (dateChoosen.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                            if (dateChoosen.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
-                                countDay++;
-                                total += (pay * 500);
-                            }
-                        }
-                    } catch (Exception ignored) {
-
-                    }
-                }
-
-
-                String day = Integer.toString(countDay);
-                String price = Integer.toString(total);
-                tv_income.setText("Rp. " + price);
-                tv_transaction.setText(day);
-                Log.d(TAG, "onDataChange: total " + total);
-                Log.d(TAG, "onDataChange: countDay " + countDay);
-                Log.d(TAG, "onDataChange: date " + date);
-                Log.d(TAG, "onDataChange: dateChoosen " + dateChoosen.getTimeInMillis());
-                Log.d(TAG, "onDataChange: day " + day);
-                Log.d(TAG, "onDataChange: price " + price);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-//TODO: data per hari belum berubah
-        super.onStart();
     }
 }

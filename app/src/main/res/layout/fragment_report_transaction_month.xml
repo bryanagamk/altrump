@@ -92,6 +92,7 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
             <TextView
+                android:id="@+id/tv_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp. 5.000.000"
@@ -116,6 +117,7 @@
                 android:fontFamily="@font/montserrat_regular"/>
 
             <TextView
+                android:id="@+id/tv_transaction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="48"
