@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_namaMesin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SPBU Sedati"
@@ -25,6 +26,7 @@
             android:fontFamily="@font/montserrat_regular"/>
 
         <TextView
+            android:id="@+id/tv_idMesin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00:00:00:00:00"
@@ -69,45 +71,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hidup"
-                    android:textColor="@color/colorTitle"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_regular"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/xd_location_24dp"
-                android:scaleType="fitStart"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginLeft="18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat"
-                    android:textColor="@color/colorSubTitle"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/montserrat_regular"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jalan Padang Padi Perum Puri Asri D-19, 64126, Kota Kediri"
                     android:textColor="@color/colorTitle"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -250,6 +213,7 @@
             android:orientation="horizontal">
 
             <RelativeLayout
+                android:id="@+id/bt_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">

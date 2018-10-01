@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

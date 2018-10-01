@@ -25,6 +25,7 @@
             android:fontFamily="@font/montserrat_regular"/>
 
         <EditText
+            android:id="@+id/et_idMesin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -62,37 +63,13 @@
                 android:src="@drawable/xd_gasstation_24dp"/>
 
             <EditText
+                android:id="@+id/et_namaMesin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:background="@android:color/transparent"
                 android:hint="Nama mesin"
                 android:inputType="textShortMessage"
-                android:textColor="@color/colorTitle"
-                android:textSize="18sp"
-                android:fontFamily="@font/montserrat_regular"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/xd_location_24dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:background="@android:color/transparent"
-                android:hint="Alamat"
-                android:inputType="textPostalAddress|textMultiLine"
                 android:textColor="@color/colorTitle"
                 android:textSize="18sp"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -121,6 +98,7 @@
                 android:src="@drawable/xd_money_24dp"/>
 
             <EditText
+                android:id="@+id/et_mobilNew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -146,6 +124,7 @@
                 android:src="@drawable/xd_money_24dp"/>
 
             <EditText
+                android:id="@+id/et_mobilRefill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -180,6 +159,7 @@
                 android:src="@drawable/xd_money_24dp"/>
 
             <EditText
+                android:id="@+id/et_motorNew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
@@ -205,6 +185,7 @@
                 android:src="@drawable/xd_money_24dp"/>
 
             <EditText
+                android:id="@+id/et_motorRefill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"

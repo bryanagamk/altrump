@@ -36,7 +36,7 @@ public class MachineList extends ArrayAdapter<Machine> {
         Machine machine = machines.get(position);
         String nama = "SPBU " + machine.getAlamat();
         textViewName.setText(nama);
-        imageView.setImageResource(R.drawable.ic_offline_24dp);
+        imageView.setImageResource(R.drawable.ic_online_24dp);
         textViewIdMesin.setText(machine.getId_mesin());
 
         return listViewItem;

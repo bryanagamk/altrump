@@ -48,7 +48,7 @@ public class MachineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_machine, container, false);
 
-        databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
+        databaseMachine = FirebaseDatabase.getInstance().getReference("machines");
 
         listViewMachine = view.findViewById(R.id.listViewMachine);
 
@@ -79,6 +79,8 @@ public class MachineFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getContext(), MachineDetailActivity.class);
+                        Machine machine = machines.get(position);
+                        intent.putExtra("machine", machine);
                         startActivity(intent);
                     }
                 });
