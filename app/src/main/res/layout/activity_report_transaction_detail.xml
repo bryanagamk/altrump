@@ -64,10 +64,21 @@
                     android:layout_marginLeft="24dp">
 
                     <TextView
+                        android:id="@+id/tv_tanggal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="31 Apr"
+                        android:text="31"
                         android:textSize="32sp"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/montserrat_bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_month"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apr"
+                        android:textSize="22sp"
                         android:textColor="@color/colorWhite"
                         android:fontFamily="@font/montserrat_bold"/>
 

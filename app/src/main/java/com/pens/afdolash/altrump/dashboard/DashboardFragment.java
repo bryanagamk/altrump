@@ -39,6 +39,7 @@ import static android.support.constraint.Constraints.TAG;
 public class DashboardFragment extends Fragment {
 
     ListView listViewMachine;
+    String TAG = "Mainnjing";
 
     List<Machine> machines;
     MachineList machineAdapter;
@@ -47,6 +48,9 @@ public class DashboardFragment extends Fragment {
     int countDay;
     int countMonth;
     int totalMonth = 0;
+    String day;
+    String months;
+    String price;
 
     List<DataDevice> dataDevices;
 
@@ -150,11 +154,27 @@ public class DashboardFragment extends Fragment {
         TextView tv_monthdashboard = view.findViewById(R.id.tv_monthDashboard);
 
         db = FirebaseDatabase.getInstance().getReference();
-        db.keepSynced(true);
-
 
         listViewMachine = view.findViewById(R.id.listViewMachine);
         machines = new ArrayList<>();
+
+        /*try{
+            Log.d(TAG, "onCreateView: " + getArguments());
+            day = getArguments() != null ? getArguments().getString("day") : null;
+            months = getArguments() != null ? getArguments().getString("month") : null;
+            price = getArguments() != null ? getArguments().getString("price") : null;
+            Log.d(TAG, "onDataChange day 3: " + day);
+            Log.d(TAG, "onDataChange month 3: " + months);
+            Log.d(TAG, "onDataChange price 3: " + price);
+
+            tv_income.setText("Rp. " + price);
+            countTransaction.setText(day);
+            tv_transaction.setText(months);
+        } catch (Exception e) {
+            tv_income.setText("Rp. 0");
+            countTransaction.setText("0");
+            tv_transaction.setText("0");
+        }*/
 
 
         // Cari Tanggal

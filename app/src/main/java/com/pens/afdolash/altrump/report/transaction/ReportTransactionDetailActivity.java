@@ -13,12 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -50,11 +52,16 @@ import java.util.List;
 
 public class ReportTransactionDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "ReportDetail";
     private ImageView imgBlur;
     private View view;
     private Bitmap blurBitmap;
     ListView listViewMachine;
     List<Machine> machines;
+    ArrayList<Integer> countTrc;
+    TextView tv_tanggal, tv_month, tv_income, tv_transaction;
+    String jumlah, income, tglbaru, thnbaru;
+    int tgl, bulan, tahun;
 
     private AnyChartView anyChartView;
     private CardView cardMotor, cardCar;
@@ -64,6 +71,32 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_transaction_detail);
+
+        final String[] month = getResources().getStringArray(R.array.month_list);
+
+        tv_month = findViewById(R.id.tv_month);
+        tv_tanggal = findViewById(R.id.tv_tanggal);
+        tv_income = findViewById(R.id.tv_income);
+        tv_transaction = findViewById(R.id.tv_transaction);
+
+        tgl = (int) getIntent().getExtras().get("tgl");
+        bulan = (int) getIntent().getExtras().get("bulan");
+        tahun = (int) getIntent().getExtras().get("tahun");
+        jumlah = (String) getIntent().getExtras().get("jumlah");
+        income = (String) getIntent().getExtras().get("income");
+        countTrc = (ArrayList<Integer>) getIntent().getExtras().get("array");
+        Log.d(TAG, "onCreate: countTrc " + countTrc);
+
+
+        tglbaru = Integer.toString(tgl);
+        thnbaru = Integer.toString(tahun);
+
+        tv_tanggal.setText(tglbaru);
+        tv_month.setText(month[bulan]);
+        tv_income.setText("Rp. " + income);
+        tv_transaction.setText(jumlah);
+
+        int totalElements = countTrc.size();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -92,21 +125,17 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
         Cartesian cartesian = AnyChart.column();
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("1", 60));
-        data.add(new ValueDataEntry("2", 80));
-        data.add(new ValueDataEntry("3", 56));
-        data.add(new ValueDataEntry("4", 20));
-        data.add(new ValueDataEntry("5", 78));
-        data.add(new ValueDataEntry("6", 56));
-        data.add(new ValueDataEntry("7", 34));
-        data.add(new ValueDataEntry("8", 10));
-        data.add(new ValueDataEntry("9", 46));
+        for (int index = 0; index < totalElements; index++){
+            Log.d(TAG, "onCreate: totalEl " + totalElements);
+            data.add(new ValueDataEntry(index, countTrc.get(index)));
+
+        }
 
 //        TODO : Ambil data Transaksi selama sebulan dan dijadikan chart
 
         Column column = cartesian.column(data);
         column.tooltip()
-                .titleFormat("{%X} Oktober 2018")
+                .titleFormat("{%X} " + month[bulan] + " " + thnbaru)
                 .position(Position.CENTER_BOTTOM)
                 .anchor(Anchor.CENTER_BOTTOM)
                 .offsetX(0d)
@@ -121,7 +150,7 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
         cartesian.yScale().minimum(0d);
-        cartesian.xAxis(0).title("Oktober 2018");
+        cartesian.xAxis(0).title(month[bulan] + " " + thnbaru);
         cartesian.yAxis(0).title("Jumlah transaksi");
         cartesian.yAxis(0).labels().format("{%Value}");
 
@@ -178,5 +207,9 @@ public class ReportTransactionDetailActivity extends AppCompatActivity {
         canvas.drawBitmap(image, 0, 0, paint);
 
         return image;
+    }
+
+    public void getData(final long date) {
+
     }
 }

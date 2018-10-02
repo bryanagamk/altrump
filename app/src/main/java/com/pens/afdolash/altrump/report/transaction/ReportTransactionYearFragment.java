@@ -43,6 +43,8 @@ public class ReportTransactionYearFragment extends Fragment {
     int count;
     int total;
     int year;
+    String[] tahun;
+    Calendar input;
 
     TextView tv_transaction, tv_income;
 
@@ -62,66 +64,82 @@ public class ReportTransactionYearFragment extends Fragment {
 
 
         db = FirebaseDatabase.getInstance().getReference();
-        db.keepSynced(true);
 
         spinnerYear = (MaterialSpinner) view.findViewById(R.id.spinner_year);
         spinnerYear.setItems(getResources().getStringArray(R.array.year_list));
         spinnerYear.setTypeface(ResourcesCompat.getFont(getContext(), R.font.montserrat_regular), Typeface.NORMAL);
 
-        final String[] tahun = getResources().getStringArray(R.array.year_list);
+        tahun = getResources().getStringArray(R.array.year_list);
         year = Integer.parseInt(tahun[spinnerYear.getSelectedIndex()]);
+
+        input = Calendar.getInstance();
+        input.set(year, 0, 1);
+        input = setTimming(input);
+        getData(input.getTimeInMillis());
+
         spinnerYear.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                db.child("altrump").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        dataDevices = new ArrayList<>();
-                        Calendar dateChoosen = Calendar.getInstance();
-                        dateChoosen.set(year, 0, 1);
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                        count = 0;
-                        total = 0;
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            Device data = postSnapshot.getValue(Device.class);
-                            try {
-                                Date date = formatter.parse(data.getDate());
-                                Calendar myCal = Calendar.getInstance();
-                                myCal.setTime(date);
-                                String val = data.getPrice();
-                                val = val.replace(",", "");
-                                int pay = Integer.parseInt(val);
-
-                                if (dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                                    count++;
-                                    total += (pay * 500);
-                                }
-                            } catch (Exception ignored) {
-
-                            }
-                        }
-
-
-                        String day = Integer.toString(count);
-                        String price = Integer.toString(total);
-                        tv_income.setText("Rp. " + price);
-                        tv_transaction.setText(day);
-                        Log.d(TAG, "onDataChange: total " + total);
-                        Log.d(TAG, "onDataChange: countDay " + count);
-                        Log.d(TAG, "onDataChange: date " + date);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                year = Integer.parseInt(tahun[view.getSelectedIndex()]);
+                input.set(year, 0, 1);
+                input = setTimming(input);
+                getData(input.getTimeInMillis());
             }
         });
 
         return view;
     }
 
+    public void getData(final long date){
+        db.child("altrump").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataDevices = new ArrayList<>();
+                Calendar dateChoosen = Calendar.getInstance();
+                dateChoosen.set(year, 0, 1);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                count = 0;
+                total = 0;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Device data = postSnapshot.getValue(Device.class);
+                    try {
+                        Date date = formatter.parse(data.getDate());
+                        Calendar myCal = Calendar.getInstance();
+                        myCal.setTime(date);
+                        String val = data.getPrice();
+                        val = val.replace(",", "");
+                        int pay = Integer.parseInt(val);
 
-    /*TODO: Estimasi pemasukan untuk tahunan*/
+                        if (dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                            count++;
+                            total += (pay * 500);
+                        }
+                    } catch (Exception ignored) {
+
+                    }
+                }
+
+
+                String day = Integer.toString(count);
+                String price = Integer.toString(total);
+                tv_income.setText("Rp. " + price);
+                tv_transaction.setText(day);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public Calendar setTimming(Calendar date) {
+        date.set(Calendar.HOUR, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        date.set(Calendar.HOUR_OF_DAY, 0);
+
+        return date;
+    }
 }
