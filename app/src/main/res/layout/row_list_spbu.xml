@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_motor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:background="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/xd_gasstation_24dp"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/tv_namaSPBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="SPBU Sedati"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
+
+                        <TextView
+                            android:id="@+id/tv_jmlPbaruAtas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="2dp"
+                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="transaksi"
+                        android:textColor="@color/colorSubTitle"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/expandable_motor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorSeparator"
+                    android:layout_marginBottom="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Transaksi berhasil"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_jmlTBerhasil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="transaksi"
+                            android:textColor="@color/colorSubTitle"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Transaksi gagal"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_jmlTGagal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="transaksi"
+                            android:textColor="@color/colorSubTitle"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Pengisian baru"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_jmlPbaru"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="transaksi"
+                            android:textColor="@color/colorSubTitle"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Pengisian ulang"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tv_jmlPulang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_medium"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="transaksi"
+                            android:textColor="@color/colorSubTitle"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

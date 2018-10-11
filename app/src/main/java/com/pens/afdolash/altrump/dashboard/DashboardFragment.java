@@ -1,7 +1,9 @@
 package com.pens.afdolash.altrump.dashboard;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,17 +24,15 @@ import com.pens.afdolash.altrump.R;
 import com.pens.afdolash.altrump.model.DataDevice;
 import com.pens.afdolash.altrump.model.Device;
 import com.pens.afdolash.altrump.model.Machine;
+import com.pens.afdolash.altrump.model.Users;
+import com.pens.afdolash.altrump.splash.SignInActivity;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -45,12 +47,14 @@ public class DashboardFragment extends Fragment {
     MachineList machineAdapter;
     // Get a reference to your user
     DatabaseReference db;
-    int countDay;
-    int countMonth;
-    int totalMonth = 0;
-    String day;
-    String months;
-    String price;
+    int countDays = 0;
+    int countMonths = 0;
+    int totalMonths = 0;
+    private FirebaseAuth.AuthStateListener authListener;
+    FirebaseAuth auth;
+    FirebaseUser user;
+    String user_key;
+    String machineID;
 
     List<DataDevice> dataDevices;
 
@@ -67,38 +71,19 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public void onStart() {
-        machineAdapter = new MachineList(getContext(), machines);
-        listViewMachine.setAdapter(machineAdapter);
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
 
-        db.child("machine").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+    public void getData(String machineID){
 
-                machines.clear();
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Machine machine = postSnapshot.getValue(Machine.class);
-                    machines.add(machine);
-                }
-
-                machineAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        db.child("altrump").addValueEventListener(new ValueEventListener() {
+        db.child(machineID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataDevices = new ArrayList<>();
                 Calendar now = Calendar.getInstance();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                countDay = 0;
-                countMonth = 0;
-                totalMonth = 0;
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     Device data = postSnapshot.getValue(Device.class);
@@ -111,24 +96,29 @@ public class DashboardFragment extends Fragment {
                         val = val.replace(",", "");
                         int pay = Integer.parseInt(val);
 
-                        if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                            if (now.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
-                                countDay++;
+                        if (data.getStatusA().equals("1")){
+                            if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                                if (now.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
+                                    countDays++;
+                                }
+                                totalMonths += (pay * 500);
+                                countMonths++;
                             }
-                            totalMonth += (pay * 500);
-                            countMonth++;
                         }
+
+                        String day = Integer.toString(countDays);
+                        String months = Integer.toString(countMonths);
+                        String price = Integer.toString(totalMonths);
+                        tv_income.setText("Rp. " + price);
+                        countTransaction.setText(day);
+                        tv_transaction.setText(months);
+
                     } catch (Exception ignored) {
 
                     }
                 }
 
-                String day = Integer.toString(countDay);
-                String month = Integer.toString(countMonth);
-                String price = Integer.toString(totalMonth);
-                tv_income.setText("Rp. " + price);
-                countTransaction.setText(day);
-                tv_transaction.setText(month);
+
             }
 
             @Override
@@ -136,9 +126,85 @@ public class DashboardFragment extends Fragment {
 
             }
         });
+    }
 
+    public void getAuth(){
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
 
-        super.onStart();
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(getActivity(), SignInActivity.class));
+                } else {
+                    final String email = user.getEmail();
+                    db = FirebaseDatabase.getInstance().getReference();
+
+                    db.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                Users user = postSnapshot.getValue(Users.class);
+                                if (email.equals(user.getEmail())){
+                                    user_key = "-LM2S1zRn_pUW65vpclQ";
+                                    getMachine();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+    }
+
+    public void getMachine(){
+        machineAdapter = new MachineList(getContext(), machines);
+        listViewMachine.setAdapter(machineAdapter);
+
+        db.child("machine").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                machines.clear();
+
+                countDays = 0;
+                countMonths = 0;
+                totalMonths = 0;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Machine machine = postSnapshot.getValue(Machine.class);
+                    try {
+                        if (machine != null && user_key.equals(machine.getUser_key())) {
+                            //adding machine to the list
+                            machineID = machine.getId_mesin();
+                            getData(machineID);
+                            machines.add(machine);
+                        }
+                    } catch (Exception e){
+
+                    }
+                }
+
+                machineAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -158,25 +224,6 @@ public class DashboardFragment extends Fragment {
         listViewMachine = view.findViewById(R.id.listViewMachine);
         machines = new ArrayList<>();
 
-        /*try{
-            Log.d(TAG, "onCreateView: " + getArguments());
-            day = getArguments() != null ? getArguments().getString("day") : null;
-            months = getArguments() != null ? getArguments().getString("month") : null;
-            price = getArguments() != null ? getArguments().getString("price") : null;
-            Log.d(TAG, "onDataChange day 3: " + day);
-            Log.d(TAG, "onDataChange month 3: " + months);
-            Log.d(TAG, "onDataChange price 3: " + price);
-
-            tv_income.setText("Rp. " + price);
-            countTransaction.setText(day);
-            tv_transaction.setText(months);
-        } catch (Exception e) {
-            tv_income.setText("Rp. 0");
-            countTransaction.setText("0");
-            tv_transaction.setText("0");
-        }*/
-
-
         // Cari Tanggal
         String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
         tv_date.setText(date);
@@ -184,6 +231,7 @@ public class DashboardFragment extends Fragment {
         String month = new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(new Date());
         tv_monthdashboard.setText(month);
 
+        getAuth();
         return view;
     }
 }

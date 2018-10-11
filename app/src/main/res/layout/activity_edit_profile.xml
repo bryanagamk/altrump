@@ -77,19 +77,6 @@
                     android:layout_height="200dp">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/xd_camera_24dp"
-                        android:tint="@color/colorWhite"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:elevation="1dp"/>
-
-                    <ImageView
                         android:id="@+id/img_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -103,27 +90,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="59dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Afdolash Nur K."
-                    android:textSize="16sp"
-                    android:textColor="@color/colorTitle"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:layout_gravity="center"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2103151059"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorTitle"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/xd_people_24dp"/>
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp" />
+                    <EditText
+                        android:id="@+id/et_nameEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Name"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,7 +124,8 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp">
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -139,6 +133,7 @@
                         android:src="@drawable/xd_mail_24dp"/>
 
                     <EditText
+                        android:id="@+id/et_emailEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
@@ -170,6 +165,7 @@
                         android:orientation="vertical">
 
                         <EditText
+                            android:id="@+id/et_tmpLahirEdit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="18dp"
@@ -181,13 +177,13 @@
                             android:fontFamily="@font/montserrat_regular"/>
 
                         <EditText
+                            android:id="@+id/et_tglLahirEdit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginLeft="18dp"
                             android:background="@android:color/transparent"
                             android:hint="Tanggal lahir"
-                            android:inputType="date"
                             android:textColor="@color/colorTitle"
                             android:textSize="18sp"
                             android:fontFamily="@font/montserrat_regular"/>
@@ -211,6 +207,7 @@
                         android:src="@drawable/xd_phone_24dp"/>
 
                     <EditText
+                        android:id="@+id/et_telpEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
@@ -235,9 +232,38 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:src="@drawable/xd_location_24dp"/>
+
+                    <EditText
+                        android:id="@+id/et_locationEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="Alamat"
+                        android:inputType="text"
+                        android:textColor="@color/colorTitle"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/xd_key_24dp"/>
 
                     <EditText
+                        android:id="@+id/et_passwdEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
@@ -266,6 +292,7 @@
                         android:src="@drawable/xd_key_24dp"/>
 
                     <EditText
+                        android:id="@+id/et_passwdReEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
@@ -285,6 +312,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <RelativeLayout
+        android:id="@+id/simpanEdit"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"

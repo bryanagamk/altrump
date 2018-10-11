@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.R;
 import com.pens.afdolash.altrump.model.Machine;
+import com.pens.afdolash.altrump.model.Users;
+import com.pens.afdolash.altrump.splash.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,11 @@ public class MachineFragment extends Fragment {
 
     // Get a reference to your user
     DatabaseReference databaseMachine;
+    private FirebaseAuth.AuthStateListener authListener;
+    FirebaseAuth auth;
+    FirebaseUser user;
+    DatabaseReference db;
+    String user_key;
 
     public MachineFragment() {
         // Required empty public constructor
@@ -48,12 +57,48 @@ public class MachineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_machine, container, false);
 
-        databaseMachine = FirebaseDatabase.getInstance().getReference("machines");
 
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(getActivity(), SignInActivity.class));
+                } else {
+                    final String email = user.getEmail();
+                    db = FirebaseDatabase.getInstance().getReference();
+
+                    db.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                Users user = postSnapshot.getValue(Users.class);
+                                if (email.equals(user.getEmail())){
+                                    user_key = postSnapshot.getKey();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+
+        databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
         listViewMachine = view.findViewById(R.id.listViewMachine);
-
         machines = new ArrayList<>();
-
         databaseMachine.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,8 +110,15 @@ public class MachineFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting machine
                     Machine machine = postSnapshot.getValue(Machine.class);
-                    //adding machine to the list
-                    machines.add(machine);
+                    try {
+                        if (machine != null && user_key.equals(machine.getUser_key())) {
+                            //adding machine to the list
+                            machines.add(machine);
+                        }
+                    } catch (Exception e){
+
+                    }
+
                 }
 
                 //creating adapter
@@ -105,14 +157,12 @@ public class MachineFragment extends Fragment {
             }
         });
 
-        /*TODO:
-        * tampilkan machine detail
-        * tampilkan machine form untuk update
-        * buat fungsi hapus
-        * */
-
         return view;
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
 }

@@ -62,6 +62,15 @@ public class Users {
         return isOnline;
     }
 
+    public Users(String alamat, String email, String fname, String tmpt_lahir, String nomor_hp, String tgl_lahir) {
+        this.alamat = alamat;
+        this.email = email;
+        this.fname = fname;
+        this.tmpt_lahir = tmpt_lahir;
+        this.nomor_hp = nomor_hp;
+        this.tgl_lahir = tgl_lahir;
+    }
+
     public Users(String email, String fname, String password, String nomor_hp) {
         this.alamat = "";
         this.email = email;
@@ -72,7 +81,7 @@ public class Users {
         this.nomor_hp = nomor_hp;
         this.nomor_telp = "";
         this.OID = "";
-        this.id_number = id_number;
+        this.id_number = 0;
         this.lastActive = "";
         this.tgl_lahir = "";
         this.isOnline = "";

@@ -1,8 +1,10 @@
 package com.pens.afdolash.altrump.report.transaction;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +25,9 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.pens.afdolash.altrump.R;
 import com.pens.afdolash.altrump.model.DataDevice;
 import com.pens.afdolash.altrump.model.Device;
+import com.pens.afdolash.altrump.model.Machine;
+import com.pens.afdolash.altrump.model.Users;
+import com.pens.afdolash.altrump.splash.SignInActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +53,14 @@ public class ReportTransactionMonthFragment extends Fragment {
     int total;
     int year;
     Calendar input;
+    int countDays = 0;
+    int countMonths = 0;
+    int totalMonths = 0;
+    String user_key;
+    String machineID;
+    private FirebaseAuth.AuthStateListener authListener;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     TextView tv_transaction, tv_income;
 
@@ -75,58 +90,57 @@ public class ReportTransactionMonthFragment extends Fragment {
         spinnerMonth = (MaterialSpinner) view.findViewById(R.id.spinner_month);
         spinnerMonth.setItems(getResources().getStringArray(R.array.month_list));
         spinnerMonth.setTypeface(ResourcesCompat.getFont(getContext(), R.font.montserrat_regular), Typeface.NORMAL);
-        input.set(year, spinnerMonth.getSelectedIndex(), 1);
-        input = setTimming(input);
-        getData(input.getTimeInMillis());
+        getAuth();
 
         spinnerMonth.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                input.set(year, spinnerMonth.getSelectedIndex(), 1);
-                input = setTimming(input);
-                getData(input.getTimeInMillis());
+                getMachine();
             }
         });
-
-
-
-
         return view;
     }
 
-    public void getData(final long date) {
-        db.child("altrump").addValueEventListener(new ValueEventListener() {
+    public void getData(String machineID){
+
+        db.child(machineID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                dataDevices = new ArrayList<>();
                 Calendar dateChoosen = Calendar.getInstance();
                 dateChoosen.set(year, spinnerMonth.getSelectedIndex(), 1);
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                count = 0;
-                total = 0;
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
                     Device data = postSnapshot.getValue(Device.class);
+
                     try {
-                        Date date = formatter.parse(data.getDate());
+                        Date dates = formatter.parse(data.getDate());
                         Calendar myCal = Calendar.getInstance();
-                        myCal.setTime(date);
+                        myCal.setTime(dates);
                         String val = data.getPrice();
                         val = val.replace(",", "");
                         int pay = Integer.parseInt(val);
 
-                        if (dateChoosen.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                            count++;
-                            total += (pay * 500);
+                        if (data.getStatusA().equals("1")){
+                            if (dateChoosen.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && dateChoosen.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                                totalMonths += (pay * 500);
+                                countMonths++;
+                            }
                         }
+
+                        String day = Integer.toString(countDays);
+                        String months = Integer.toString(countMonths);
+                        String price = Integer.toString(totalMonths);
+                        tv_income.setText("Rp. " + price);
+                        tv_transaction.setText(months);
+
                     } catch (Exception ignored) {
 
                     }
                 }
 
-                String day = Integer.toString(count);
-                String price = Integer.toString(total);
-                tv_income.setText("Rp. " + price);
-                tv_transaction.setText(day);
+
             }
 
             @Override
@@ -134,6 +148,85 @@ public class ReportTransactionMonthFragment extends Fragment {
 
             }
         });
+    }
+
+    public void getAuth(){
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(getActivity(), SignInActivity.class));
+                } else {
+                    final String email = user.getEmail();
+                    db = FirebaseDatabase.getInstance().getReference();
+
+                    db.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                Users user = postSnapshot.getValue(Users.class);
+                                if (email.equals(user.getEmail())){
+                                    user_key = "-LM2S1zRn_pUW65vpclQ";
+                                    getMachine();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+    }
+
+    public void getMachine(){
+
+        db.child("machine").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                countDays = 0;
+                countMonths = 0;
+                totalMonths = 0;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Machine machine = postSnapshot.getValue(Machine.class);
+                    try {
+                        if (machine != null && user_key.equals(machine.getUser_key())) {
+                            //adding machine to the list
+                            machineID = machine.getId_mesin();
+                            getData(machineID);
+                        }
+                    } catch (Exception e){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
     }
 
     public Calendar setTimming(Calendar date) {

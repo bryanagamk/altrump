@@ -17,11 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pens.afdolash.altrump.R;
+import com.pens.afdolash.altrump.firebaseHelper.AESCrypt;
 import com.pens.afdolash.altrump.model.Users;
 import com.pens.afdolash.altrump.navbar.MainActivity;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -74,8 +77,14 @@ public class SignUpActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()){
                                         Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
                                     }else {
+                                        String pass = null;
+                                        try {
+                                            pass = AESCrypt.encrypt(passwd);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
 
-                                        Users i = new Users(emails, fname, passwd, telp);
+                                        Users i = new Users(emails, fname, pass, telp);
 
                                         System.out.println("email, fname, passwd, telp : " + emails + " " +  fname + " " + passwd + " " + telp);
 

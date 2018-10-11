@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.dashboard.DashboardFragment;
 import com.pens.afdolash.altrump.information.InformationFragment;
 import com.pens.afdolash.altrump.R;
-import com.pens.afdolash.altrump.model.DataDevice;
-import com.pens.afdolash.altrump.model.Device;
+import com.pens.afdolash.altrump.model.Users;
 import com.pens.afdolash.altrump.profile.ProfileActivity;
 import com.pens.afdolash.altrump.report.ReportFragment;
 import com.pens.afdolash.altrump.settings.SettingsFragment;
@@ -47,13 +48,8 @@ import com.pens.afdolash.altrump.splash.SignInActivity;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
 
@@ -67,22 +63,14 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private Drawable[] screenIcons;
 
     DatabaseReference db;
-    int countDay;
-    int countMonth;
-    int totalMonth = 0;
-    Bundle bundle;
-    String day;
-    String month;
-    String price;
-
-    List<DataDevice> dataDevices;
-    String TAG = "Mainnjing";
-
 
     private SlidingRootNav slidingRootNav;
 
     private FirebaseAuth.AuthStateListener authListener;
     FirebaseAuth auth;
+    FirebaseUser user;
+    TextView headerName;
+    String user_key;
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -97,20 +85,43 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
+                } else {
+                    final String email = user.getEmail();
+                    db = FirebaseDatabase.getInstance().getReference();
+
+                    db.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                Users user = postSnapshot.getValue(Users.class);
+                                if (email.equals(user.getEmail())){
+                                    user_key = postSnapshot.getKey();
+                                    headerName = findViewById(R.id.tv_nama);
+                                    headerName.setText(user.getFname());
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getData();
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
@@ -263,62 +274,5 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-    }
-
-    private void getData () {
-        db = FirebaseDatabase.getInstance().getReference();
-
-        db.child("altrump").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChange: " + dataSnapshot.getValue());
-                dataDevices = new ArrayList<>();
-                Calendar now = Calendar.getInstance();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                countDay = 0;
-                countMonth = 0;
-                totalMonth = 0;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    Device data = postSnapshot.getValue(Device.class);
-
-                    try {
-                        Date date = formatter.parse(data.getDate());
-                        Calendar myCal = Calendar.getInstance();
-                        myCal.setTime(date);
-                        String val = data.getPrice();
-                        val = val.replace(",", "");
-                        int pay = Integer.parseInt(val);
-
-                        if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                            if (now.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
-                                countDay++;
-                            }
-                            totalMonth += (pay * 500);
-                            countMonth++;
-                        }
-                    } catch (Exception ignored) {
-
-                    }
-                }
-
-                Log.d(TAG, "onDataChange countDay : " + countDay);
-                Log.d(TAG, "onDataChange countMonth : " + countMonth);
-                Log.d(TAG, "onDataChange totalMonth : " + totalMonth);
-                day = Integer.toString(countDay);
-                month = Integer.toString(countMonth);
-                price = Integer.toString(totalMonth);
-
-                Log.d(TAG, "onDataChange day : " + day);
-                Log.d(TAG, "onDataChange month : " + month);
-                Log.d(TAG, "onDataChange price : " + price);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }

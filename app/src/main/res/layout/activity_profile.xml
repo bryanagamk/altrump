@@ -71,6 +71,7 @@
                     android:layout_height="59dp" />
 
                 <TextView
+                    android:id="@+id/tv_fname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -78,15 +79,6 @@
                     android:text="Bryan Agam K."
                     android:textColor="@color/colorTitle"
                     android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:text="2103151059"
-                    android:textColor="@color/colorTitle"
-                    android:textSize="14sp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -123,6 +115,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
@@ -166,6 +159,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_ttl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
@@ -209,6 +203,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_nomerHP"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
@@ -252,6 +247,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_alamat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"

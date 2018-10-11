@@ -31,7 +31,7 @@ public class MachineDetailActivity extends AppCompatActivity {
         tv_idMesin = findViewById(R.id.tv_idMesin);
 
         final Machine machine = (Machine) getIntent().getExtras().get("machine");
-        mDatabase = FirebaseDatabase.getInstance().getReference("machines");
+        mDatabase = FirebaseDatabase.getInstance().getReference("machine");
 
         tv_namaMesin.setText(machine.getAlamat());
         tv_idMesin.setText(machine.getId_mesin());
