@@ -136,11 +136,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(getActivity(), SignInActivity.class));
-                } else {
+                if (user != null) {
                     final String email = user.getEmail();
                     db = FirebaseDatabase.getInstance().getReference();
 
@@ -155,7 +151,6 @@ public class DashboardFragment extends Fragment {
                                     user_key = "-LM2S1zRn_pUW65vpclQ";
                                     getMachine();
                                 }
-
                             }
                         }
 
@@ -170,8 +165,11 @@ public class DashboardFragment extends Fragment {
     }
 
     public void getMachine(){
-        machineAdapter = new MachineList(getContext(), machines);
-        listViewMachine.setAdapter(machineAdapter);
+        if(getActivity() != null){
+            machineAdapter = new MachineList(getContext(), machines);
+            listViewMachine.setAdapter(machineAdapter);
+        }
+
 
         db.child("machine").addValueEventListener(new ValueEventListener() {
             @Override
@@ -197,7 +195,9 @@ public class DashboardFragment extends Fragment {
                     }
                 }
 
-                machineAdapter.notifyDataSetChanged();
+                if (getActivity() != null){
+                    machineAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override

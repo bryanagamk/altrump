@@ -45,6 +45,7 @@ public class MachineFragment extends Fragment {
     FirebaseUser user;
     DatabaseReference db;
     String user_key;
+    MachineList machineAdapter;
 
     public MachineFragment() {
         // Required empty public constructor
@@ -58,6 +59,8 @@ public class MachineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_machine, container, false);
 
 
+        databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
+        listViewMachine = view.findViewById(R.id.listViewMachine);
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
@@ -82,6 +85,7 @@ public class MachineFragment extends Fragment {
                                 Users user = postSnapshot.getValue(Users.class);
                                 if (email.equals(user.getEmail())){
                                     user_key = postSnapshot.getKey();
+                                    getData();
                                 }
 
                             }
@@ -96,8 +100,37 @@ public class MachineFragment extends Fragment {
             }
         };
 
-        databaseMachine = FirebaseDatabase.getInstance().getReference("machine");
-        listViewMachine = view.findViewById(R.id.listViewMachine);
+        listViewMachine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), MachineDetailActivity.class);
+                Machine machine = machines.get(position);
+                intent.putExtra("machine", machine);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Click action
+                Intent intent = new Intent(getContext(), MachineAddActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
+
+    public void getData(){
         machines = new ArrayList<>();
         databaseMachine.addValueEventListener(new ValueEventListener() {
             @Override
@@ -122,20 +155,10 @@ public class MachineFragment extends Fragment {
                 }
 
                 //creating adapter
-                final MachineList machineAdapter = new MachineList(getActivity(), machines);
+                machineAdapter = new MachineList(getActivity(), machines);
                 //attaching adapter to the listview
 
                 listViewMachine.setAdapter(machineAdapter);
-
-                listViewMachine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getContext(), MachineDetailActivity.class);
-                        Machine machine = machines.get(position);
-                        intent.putExtra("machine", machine);
-                        startActivity(intent);
-                    }
-                });
 
             }
 
@@ -145,24 +168,5 @@ public class MachineFragment extends Fragment {
 
             }
         });
-
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Click action
-                Intent intent = new Intent(getContext(), MachineAddActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        auth.addAuthStateListener(authListener);
     }
 }

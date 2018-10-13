@@ -249,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     //sign out method
     public void signOut() {
         auth.signOut();
+        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+        finish();
     }
 
     @Override
