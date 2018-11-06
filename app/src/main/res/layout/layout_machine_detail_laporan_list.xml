@@ -2,7 +2,7 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:padding="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal" android:layout_width="match_parent"
@@ -39,6 +39,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/img_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_online_24dp" />
@@ -48,7 +49,7 @@
                 android:text="Hidup"
                 android:fontFamily="@font/montserrat_light"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:id="@+id/textViewGenre"
+                android:id="@+id/tvStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="7"
+            android:layout_weight="5"
             android:orientation="vertical">
 
             <TextView
@@ -79,34 +80,64 @@
                 android:layout_height="wrap_content"
                 android:text="Mesin Hidup"
                 android:fontFamily="@font/montserrat_light"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
 
-
-            <TextView
-                android:id="@+id/tv_jamHidup"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_medium"
-                android:text="16 September 2018         13.00 WIB"
-                android:textSize="16sp"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_tglMesin1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="16 September 2018"
+                    android:textSize="14sp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                <TextView
+                    android:id="@+id/tv_jamHidup"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="13.00 WIB"
+                    android:textSize="14sp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_light"
                 android:text="Mesin Mati"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
-            <TextView
-                android:id="@+id/tv_jamMati"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_medium"
-                android:textSize="16sp"
-                android:text="16 September 2018          21.00 WIB"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_tglMesin2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="16 September 2018"
+                    android:textSize="14sp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                <TextView
+                    android:id="@+id/tv_jamMati"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="13.00 WIB"
+                    android:textSize="14sp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

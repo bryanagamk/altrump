@@ -23,10 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.pens.afdolash.altrump.R;
 import com.pens.afdolash.altrump.model.DataDevice;
 import com.pens.afdolash.altrump.model.Device;
+import com.pens.afdolash.altrump.model.DeviceLog;
 import com.pens.afdolash.altrump.model.Machine;
 import com.pens.afdolash.altrump.model.Users;
 import com.pens.afdolash.altrump.splash.SignInActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,11 +42,14 @@ import java.util.Locale;
  */
 public class DashboardFragment extends Fragment {
 
-    ListView listViewMachine;
     String TAG = "Mainnjing";
 
     List<Machine> machines;
     MachineList machineAdapter;
+    String status = "MATI";
+    String jamHidup = "00:00:00", jamMati = "00:00:00";
+    ListView listViewMachine;
+
     // Get a reference to your user
     DatabaseReference db;
     int countDays = 0;
@@ -75,60 +80,7 @@ public class DashboardFragment extends Fragment {
         auth.addAuthStateListener(authListener);
     }
 
-    public void getData(String machineID){
-
-        db.child(machineID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataDevices = new ArrayList<>();
-                Calendar now = Calendar.getInstance();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    Device data = postSnapshot.getValue(Device.class);
-
-                    try {
-                        Date date = formatter.parse(data.getDate());
-                        Calendar myCal = Calendar.getInstance();
-                        myCal.setTime(date);
-                        String val = data.getPrice();
-                        val = val.replace(",", "");
-                        int pay = Integer.parseInt(val);
-
-                        if (data.getStatusA().equals("1")){
-                            if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
-                                if (now.get(Calendar.DAY_OF_YEAR) == myCal.get(Calendar.DAY_OF_YEAR)) {
-                                    countDays++;
-                                }
-                                totalMonths += (pay * 500);
-                                countMonths++;
-                            }
-                        }
-
-                        String day = Integer.toString(countDays);
-                        String months = Integer.toString(countMonths);
-                        String price = Integer.toString(totalMonths);
-                        tv_income.setText("Rp. " + price);
-                        countTransaction.setText(day);
-                        tv_transaction.setText(months);
-
-                    } catch (Exception ignored) {
-
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getAuth(){
+    public void getAuth() {
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
 
@@ -147,7 +99,7 @@ public class DashboardFragment extends Fragment {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                                 Users user = postSnapshot.getValue(Users.class);
-                                if (email.equals(user.getEmail())){
+                                if (email.equals(user.getEmail())) {
                                     user_key = "-LM2S1zRn_pUW65vpclQ";
                                     getMachine();
                                 }
@@ -164,12 +116,7 @@ public class DashboardFragment extends Fragment {
         };
     }
 
-    public void getMachine(){
-        if(getActivity() != null){
-            machineAdapter = new MachineList(getContext(), machines);
-            listViewMachine.setAdapter(machineAdapter);
-        }
-
+    public void getMachine() {
 
         db.child("machine").addValueEventListener(new ValueEventListener() {
             @Override
@@ -182,21 +129,140 @@ public class DashboardFragment extends Fragment {
                 totalMonths = 0;
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Machine machine = postSnapshot.getValue(Machine.class);
-                    try {
-                        if (machine != null && user_key.equals(machine.getUser_key())) {
-                            //adding machine to the list
-                            machineID = machine.getId_mesin();
-                            getData(machineID);
-                            machines.add(machine);
-                        }
-                    } catch (Exception e){
+                    final Machine machine = postSnapshot.getValue(Machine.class);
 
+                    if (machine != null && user_key.equals(machine.getUser_key())) {
+                        machineID = machine.getId_mesin();
+                        getData(machineID);
+                        DatabaseReference dbDevice = FirebaseDatabase.getInstance().getReference().child(machineID);
+                        dbDevice.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+                                Device objDevice = null;
+                                long diff = 0;
+                                ArrayList<String> dataJamHidup = new ArrayList<>();
+                                ArrayList<String> dataJamMati = new ArrayList<>();
+                                Calendar now = Calendar.getInstance();
+                                Calendar date = Calendar.getInstance();
+                                long dataTime = 0;
+
+
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    objDevice = postSnapshot.getValue(Device.class);
+
+
+                                    try {
+                                        String input = objDevice.getDate() + " " + objDevice.getTime();
+                                        Date var = formatter.parse(input);
+                                        date.setTime(var);
+                                        if (now.get(Calendar.MONTH) == date.get(Calendar.MONTH) && now.get(Calendar.YEAR) == date.get(Calendar.YEAR)) {
+                                            if (16 == date.get(Calendar.DAY_OF_MONTH)) {
+                                                long currentTime = date.getTimeInMillis();
+
+                                                if (dataTime != 0){
+                                                    diff = currentTime - dataTime;
+                                                } else {
+                                                    diff = 0;
+                                                }
+
+                                                if ((objDevice.getStatusA().equals("3") && objDevice.getStatusB().equals("3") && objDevice.getType().equals("3")
+                                                        && objDevice.getPrice().equals("0")) || (diff < 180000)) {
+                                                    status = "HIDUP";
+                                                    dataJamHidup.add(objDevice.getTime());
+                                                } else {
+                                                    status = "MATI";
+                                                    dataJamMati.add(objDevice.getTime());
+                                                }
+                                                dataTime = currentTime;
+                                            }
+                                        }
+
+                                    } catch (ParseException ignored) {
+                                    }
+                                }
+
+                                if (!dataJamHidup.isEmpty() && !dataJamMati.isEmpty()) {
+                                    machine.setJamHidup(dataJamHidup.get(0));
+                                    machine.setJamMati(dataJamHidup.get(dataJamHidup.size() - 1));
+                                    long dif = now.getTimeInMillis() - date.getTimeInMillis();
+                                    if (dif > 1800000){
+                                        status = "MATI";
+                                    }
+                                    machine.setStatus(status);
+                                } else {
+                                    machine.setJamHidup(jamHidup);
+                                    machine.setJamMati(jamMati);
+                                    machine.setStatus("MATI");
+                                }
+
+                                machines.add(machine);
+
+                                if (getActivity() != null) {
+                                    machineAdapter = new MachineList(getContext(), machines);
+                                    listViewMachine.setAdapter(machineAdapter);
+                                    machineAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
+            }
 
-                if (getActivity() != null){
-                    machineAdapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getData(String machineID) {
+
+        db.child(machineID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataDevices = new ArrayList<>();
+                Calendar now = Calendar.getInstance();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    Device data = postSnapshot.getValue(Device.class);
+
+                    try {
+                        Date date = formatter.parse(data.getDate());
+
+                        Calendar myCal = Calendar.getInstance();
+
+                        myCal.setTime(date);
+                        String val = data.getPrice();
+                        val = val.replace(",", "");
+                        int pay = Integer.parseInt(val);
+
+                        if (data.getStatusA().equals("1")) {
+                            if (now.get(Calendar.MONTH) == myCal.get(Calendar.MONTH) && now.get(Calendar.YEAR) == myCal.get(Calendar.YEAR)) {
+                                if (16 == myCal.get(Calendar.DAY_OF_MONTH)) {
+                                    countDays++;
+                                }
+                                totalMonths += (pay * 500);
+                                countMonths++;
+                            }
+                        }
+
+                        String day = Integer.toString(countDays);
+                        String months = Integer.toString(countMonths);
+                        String price = Integer.toString(totalMonths);
+                        tv_income.setText("Rp. " + price);
+                        countTransaction.setText(day);
+                        tv_transaction.setText(months);
+
+                    } catch (Exception ignored) {
+
+                    }
                 }
             }
 

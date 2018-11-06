@@ -135,6 +135,79 @@ public class ReportTransactionDayFragment extends Fragment {
 
     }
 
+    public void getAuth(){
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(getActivity(), SignInActivity.class));
+                } else {
+                    final String email = user.getEmail();
+                    db = FirebaseDatabase.getInstance().getReference();
+
+                    db.child("users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                                Users user = postSnapshot.getValue(Users.class);
+                                if (email.equals(user.getEmail())){
+                                    //TODO: ganti user key yg sesuai
+                                    user_key = "-LM2S1zRn_pUW65vpclQ";
+                                    getMachine();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        };
+    }
+
+    public void getMachine(){
+
+        db.child("machine").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                countDays = 0;
+                countMonths = 0;
+                totalMonths = 0;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Machine machine = postSnapshot.getValue(Machine.class);
+                    try {
+                        if (machine != null && user_key.equals(machine.getUser_key())) {
+                            //adding machine to the list
+                            machineID = machine.getId_mesin();
+                            getData(machineID);
+                        }
+                    } catch (Exception e){
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getData(String machineID){
 
         db.child(machineID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,78 +253,6 @@ public class ReportTransactionDayFragment extends Fragment {
                 tv_income.setText("Rp. " + price);
                 tv_transaction.setText(day);
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getAuth(){
-        //get firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(getActivity(), SignInActivity.class));
-                } else {
-                    final String email = user.getEmail();
-                    db = FirebaseDatabase.getInstance().getReference();
-
-                    db.child("users").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                                Users user = postSnapshot.getValue(Users.class);
-                                if (email.equals(user.getEmail())){
-                                    user_key = "-LM2S1zRn_pUW65vpclQ";
-                                    getMachine();
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-        };
-    }
-
-    public void getMachine(){
-
-        db.child("machine").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                countDays = 0;
-                countMonths = 0;
-                totalMonths = 0;
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Machine machine = postSnapshot.getValue(Machine.class);
-                    try {
-                        if (machine != null && user_key.equals(machine.getUser_key())) {
-                            //adding machine to the list
-                            machineID = machine.getId_mesin();
-                            getData(machineID);
-                        }
-                    } catch (Exception e){
-
-                    }
-                }
             }
 
             @Override
