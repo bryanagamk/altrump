@@ -34,6 +34,8 @@ import com.pens.afdolash.altrump.model.Machine;
 import com.pens.afdolash.altrump.model.Users;
 import com.pens.afdolash.altrump.splash.SignInActivity;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -250,8 +252,19 @@ public class ReportTransactionDayFragment extends Fragment {
                 String day = Integer.toString(countDays);
                 String months = Integer.toString(countMonths);
                 String price = Integer.toString(totalMonths);
-                tv_income.setText("Rp. " + price);
-                tv_transaction.setText(day);
+
+                String format = "###,###.##";
+                DecimalFormat dm = new DecimalFormat(format);
+                DecimalFormat currency = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                formatRp.setCurrencySymbol("Rp. ");
+                formatRp.setMonetaryDecimalSeparator('.');
+                formatRp.setGroupingSeparator('.');
+
+                currency.setDecimalFormatSymbols(formatRp);
+                tv_income.setText(String.valueOf(currency.format(totalMonths)));
+                tv_transaction.setText(dm.format(countDays));
 
             }
 

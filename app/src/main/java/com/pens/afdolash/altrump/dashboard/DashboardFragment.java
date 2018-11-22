@@ -2,6 +2,10 @@ package com.pens.afdolash.altrump.dashboard;
 
 
 import android.content.Intent;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -256,9 +260,21 @@ public class DashboardFragment extends Fragment {
                         String day = Integer.toString(countDays);
                         String months = Integer.toString(countMonths);
                         String price = Integer.toString(totalMonths);
-                        tv_income.setText("Rp. " + price);
+
+                        String format = "###,###.##";
+                        DecimalFormat dm = new DecimalFormat(format);
+
+                        DecimalFormat currency = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                        formatRp.setCurrencySymbol("Rp. ");
+                        formatRp.setMonetaryDecimalSeparator('.');
+                        formatRp.setGroupingSeparator('.');
+
+                        currency.setDecimalFormatSymbols(formatRp);
+                        tv_income.setText(String.valueOf(currency.format(totalMonths)));
                         countTransaction.setText(day);
-                        tv_transaction.setText(months);
+                        tv_transaction.setText(dm.format(countMonths));
 
                     } catch (Exception ignored) {
 
